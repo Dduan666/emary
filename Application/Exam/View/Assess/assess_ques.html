@@ -1,0 +1,113 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>习题统计</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<ul class="nav nav-tabs nav-stacked">
+				<li class="active"><a href="__CONTROLLER__/assess_ques">习题统计</a></li>
+				<li><a href="__CONTROLLER__/assess_data">资料统计</a></li>
+			</ul>
+		</div>
+		<div class="span10" id="datacontent">
+			<ul class="breadcrumb">
+				<li><a href="index.php?exam-master">考核模块</a> <span class="divider">/</span></li>
+				<li>习题统计</li>
+			</ul>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#">习题统计</a>
+				</li>
+			</ul>
+			<form action="__CONTROLLER__/assess_ques" method="post">
+				<table class="table">
+					<thead>
+		                <tr>
+					        <th colspan="2">共录入&nbsp;{$con}&nbsp;条数据</th>
+					        <th></th>
+					        <th></th>
+					        <th></th>
+					        <th></th>
+		                </tr>
+		            </thead>
+					<tr>
+						<td>录入人：</td>
+			        	<td>
+			        		<select name="username" id="username" class="input-medium">
+						  		<option value="">请选择...</option>
+						  		<volist name="sel" id="v">
+						  			<option value="{$v.id}" {$ids == $v['id']?'selected="selected"':''}>{$v.name|htmlspecialchars_decode}</option>
+						  		</volist>
+						  	</select>
+			        	</td>
+						<td>录入时间：</td>
+						<td>
+							<input class="input-small datetimepicker" data-date="2016-12-16" data-date-format="yyyy-mm-dd" type="text" name="stime" size="10" id="stime" value="{$stime}"/> - 
+							<input class="input-small datetimepicker" data-date="2016-12-16" data-date-format="yyyy-mm-dd" size="10" type="text" name="etime" id="etime" value="{$etime}"/>
+						</td>
+						<td colspan="3">
+							<button class="btn btn-primary" type="button" id='search'>搜索</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<form action="" method="post" id="form1">
+				<fieldset>
+					<table class="table table-hover">
+			            <thead>
+			                <tr>
+			                    <th width="5%">ID</th>
+						        <th>题干</th>
+						        <th>试题类型</th>
+						        <th>录入人</th>
+						        <th>录入时间</th>
+						        <th>操作</th>
+			                </tr>
+			            </thead>
+			            <tbody  class="nums" id='res'>
+			            	<foreach name="list" item="v1">
+		                    <tr>
+								<td class='userid'>{$v1.qbid}</td>									
+								<td>{$v1.qbname}</td>	
+								<td>{$v1.qbtype}</td>
+								<td>{$v1.name}</td>
+								<td>{$v1.qbdate}</td>
+								<td>
+									<div class="btn-group">
+			                    		<a class="btn" data-toggle="dropdown" onclick="ClientOpenDialog('__CONTROLLER__/assess_look/id/{$v1.qbid}','Caption')" title="查看"><em class=" icon-search"></em></a>
+			                    	</div>
+								</td>
+								<script>
+									function ClientOpenDialog(url, Caption) {
+										var returnWindow = window.open(url, Caption, "resizable=yes,scrollbars=yes,Height=" + 760 + ",Width=" + 800);
+									    returnWindow.focus();
+									}
+								</script>
+					       </tr> 
+					       </foreach>
+					    </tbody>
+			       	</table>
+			        <div class="pagination pagination-right">
+			        	<div id="page">{$page}</div>
+			        </div>
+		        </fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+	$(function(){
+		$('#search').click(function(){
+			var id = $('#username option:selected').val();
+			var stime = $('input[name="stime"]').val();
+			var etime = $('input[name="etime"]').val();
+			window.location.href='?id='+id+'&stime='+stime+'&etime='+etime;
+		});
+	});
+</script>
+</block>

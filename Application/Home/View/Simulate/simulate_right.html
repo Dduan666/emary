@@ -1,0 +1,29 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>模拟考试成绩</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="content">
+<body style="background: none!important;">
+<!--<div class="row-fluid">-->
+	<table class="table table-bordered table-hover">
+		<tr class="info">
+			<td width="10%">序号</td>
+			<td width="25%">用户名</td>
+            <td width="25%">分数</td>
+			<td width="40%">考试时间</td>
+		</tr>
+		<volist name="list" id="vo">
+			<tr>
+				<td>{$first+$key+1}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.totalscore}</td>
+				<td>{$vo.date}</td>
+			</tr>
+		</volist>
+	</table>
+	<div class="pagination pagination-right">
+		<div id="page">{$page}</div>
+	</div>
+<!--</div>-->
+</body>
+</block>

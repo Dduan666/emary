@@ -1,0 +1,126 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>文件列表</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<ul class="nav nav-tabs nav-stacked">
+				<li class="active"><a href="__CONTROLLER__/attachs">文件管理</a></li>
+			</ul>
+		</div>
+		<div class="span10" id="datacontent">
+			<ul class="breadcrumb">
+				<li><a href="index.php?exam-master">文件模块</a> <span class="divider">/</span></li>
+				<li>文件管理</li>
+			</ul>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#">文件管理</a>
+				</li>
+				<li class="dropdown pull-right">
+					<a href="__CONTROLLER__/attachs_add" class="dropdown-toggle" >添加文件</a>
+				</li>
+			</ul>
+			<form action="" method="post">
+				<fieldset>
+					<table class="table table-hover">
+			            <thead>
+			                <tr>
+			                    <th width="2%"><input type="checkbox" class="checkall" target="delids"/></th>
+			                    <th width="5%">ID</th>
+						        <th>文件名</th>
+						        <th>文件类型</th>
+						        <th width="40%">文件路径</th>
+						        <th>录入人</th>
+						        <th>录入时间</th>
+						        <th>操作</th>
+			                </tr>
+			            </thead>
+			            <tbody  class="nums">
+			            	<foreach name="list" item="vo">
+		                    <tr>
+								<td><input type="checkbox" class="pldel" name="qbid_{$vo.id}" value="{$vo.id}"></td>
+								<td>{$vo.id}</td>									
+								<td>{$vo.fname}</td>
+								<td>{$vo.filetype}</td>
+								<td>{$vo.fileurl}</td>
+								<td>{$vo.name}</td>
+								<td>{$vo.filetime}</td>
+								<td>
+									<div class="btn-group">
+			                    		<a class="btn" href="__CONTROLLER__/attachs_alter/id/{$vo.id}" title="修改"><em class="icon-edit"></em></a>
+										<a class="btn" onclick="del({$vo.id})" class="del" ><em class="icon-remove"></em></a>
+			                    	</div>
+								</td>
+					       </tr> 
+					       </foreach>
+					    </tbody>
+			        </table>
+			        <div class="control-group">
+			            <div class="controls">
+				            <button id="dels" class="btn btn-primary" type="button">删除</button>
+				        </div>
+			        </div>
+			        <div class="pagination pagination-right">
+			        	<div id="page">{$page}</div>
+			        </div>
+		        </fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+	function del(id){
+		$.ajax({
+			type : 'post',
+			url  : '',
+			dataType : 'json',
+			data : {id: id},
+			success:function(data){
+				if(data == 1){
+					alert('删除成功');
+					window.location.reload();
+				}else{
+					alert('删除失败');
+				}
+			}
+		});
+	}
+</script>
+<script>
+	$(function(){
+		$('#dels').click(function(){
+			if(confirm('确定要删除吗？') == true){
+				var arr = [];
+				var ids = $(".nums input[type='checkbox']:checked");
+				for(var i = 0;i < ids.length;i++){
+					arr+=$(ids[i]).val()+",";
+				}
+				if(arr ==''){
+					alert('请至少选择一项！');
+				}else{
+					arr = arr.substring(0,arr.length-1);
+					$.ajax({
+						type : 'post',
+						url  : '__CONTROLLER__/attachs_dels',
+						dataType : 'json',
+						data : {ids: arr},
+						success:function(data){
+							if(data == 0){
+								window. location.reload();
+							}else{
+								alert('请稍后再试！');
+							}
+						}
+					});
+				}
+			}else{return false;}				
+		});
+	});
+</script>
+</block>

@@ -1,0 +1,105 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>添加文件</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="style"><style>table td{border: none!important;}</style></block>
+<block name="content">
+	<body>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2">
+					<div class="accordion" id="accordion-13465">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" href="__CONTROLLER__/attachs">文件管理 </a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span10" id="datacontent">
+					<ul class="breadcrumb">
+						<li><a href="">文件模块</a> <span class="divider">/</span></li>
+						<li>文件管理</li>
+						<li class="active">添加文件</li>	
+					</ul>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#">添加文件</a></li>
+						<li class="pull-right"><a href="__CONTROLLER__/attachs">文件管理</a></li>
+					</ul>
+					<form action="__CONTROLLER__/fileupload" name="fileupload" method="POST" class="form-horizontal" enctype="multipart/form-data">
+						<fieldset>
+							<table class="table">
+								<tr>
+									<td width="10%">所属级别：</td>
+						        	<td width="90%">
+						        		<select name="classid" id="classid" class="input-medium">
+						        			<option>请选择...</option>
+									  		<volist name="list" id="vo">
+							           			<option value="{$vo.id}">{$vo.classname|htmlspecialchars_decode}</option>
+							           		</volist>
+									  	</select>
+									  	<select name="ftype" id="ftype" class="input-medium">
+									  		<option>请选择...</option>
+									  		<option value="0">文档</option>
+									  		<option value="1">视频</option>
+									  		<option value="2">录音</option>
+									  	</select>
+						        	</td>
+								</tr>
+								<tr>
+									<td width="10%">多选项：</td>
+									<td width="90%">
+										<button class="btn" type="button" id="adds">增加</button>
+										<button class="btn" type="button" id="dels">删除</button>
+									</td>
+								</tr>
+								<tr class="addclass">
+									<td width="10%">请选择：</td>
+									<td width="90%">
+										<input type="file" class="upload" name="filename[]" style="margin-top: 8px;" />
+									</td>
+								</tr>
+							</table>
+							<button class="btn btn-primary" type="submit" id="fileUpload">确定</button>
+						</fieldset> 
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</block>
+<block name="script">
+<script>
+	$(function() {
+		$('#logout').click(function() {
+			$.ajax({
+				type: 'post',
+				url: '__MODULE__/Index/logout',
+				dataType: 'json',
+				success: function(data) {
+					if(data == 1) {
+						window.location.href = "__MODULE__/Login/login";
+					} else {
+						alert('系统错误');
+						window.location.href = "javascript:window.opener=null;window.open('','_self');window.close();";
+					}
+				}
+			});
+		});
+	});
+</script>
+<script>
+	$(function(){
+		$('#adds').click(function(){
+			$('.table').append("<tr class='addclass'><td width='10%'></td><td width='90%'><input type='file' class='upload' name='filename[]' style='margin-top: 8px;' /></td></tr>");
+		});
+		$('#dels').click(function(){
+			var con = $('.addclass').length;
+			if(con > 1){
+				$('.table .addclass:last').remove();
+			}
+		});
+	});
+</script>
+</block>

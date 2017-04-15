@@ -1,0 +1,83 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>模拟考试成绩</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2" style="margin-top: 20px;">
+			<div class="exambox"  style="width: 170px;height: 590px;">
+				<div class="st_tree">
+					<ul>
+						<li><a>银行</a></li>
+						<ul>
+							<volist name="list" id="vo">
+							<li><a href="__MODULE__/Simulate/simulate_paper/id/{$vo.id}" target="right">{$vo.classname}</a></li>
+							</volist>
+						</ul>
+						<li><a>机构</a></li>
+						<ul>
+							<volist name="list1" id="vo1">
+								<li><a href="__MODULE__/Simulate/simulate_paper/id/{$vo1.id}" target="right">{$vo1.classname}</a></li>
+							</volist>
+						</ul>
+						<!-- <li><a>质押</a></li>
+						<ul>
+							<volist name="list2" id="vo2">
+								<li><a href="__MODULE__/Simulate/simulate_paper/id/{$vo2.id}" target="right">{$vo2.classname}</a></li>
+							</volist>
+						</ul> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="span10" id="datacontent" style="">
+			<div class="container-fluid examcontent" style=''>
+				<div class="exambox" id="datacontent">
+					<div class="examform" style="height: 560px;">
+						<iframe src='__CONTROLLER__/simulate_right' name="right" scrolling="yes" frameborder="0" marginheight="0" marginwidth="0" width="964" height="580">
+					    </iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+$(function(){
+	$(".st_tree").SimpleTree({
+		/* 可无视代码部分*/
+		click:function(a){
+			if(!$(a).attr("hasChild"));		
+		}
+	});
+});
+</script>
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			var msg = '确定要退出吗？';
+			if(confirm(msg) == true){
+				$.ajax({
+					type : 'post',
+					url  : '__MODULE__/Index/logout',
+					datatype : 'json',
+					success:function(data){
+						if(data == 1){
+							window.location.href = "__MODULE__/User/login";
+						}else{
+							alert('你好，请登录！');
+							window.location.href = "__MODULE__/User/login";
+						}
+					}
+				});
+			}else{
+				alert('失败！');
+			}
+		});
+	});
+</script>
+</block>

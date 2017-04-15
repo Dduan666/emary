@@ -1,0 +1,73 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>用户登录</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+	<div class="row-fluid">
+	<div class="container-fluid logcontent">
+		<div class="logbox exambox">
+			<div class="form-horizontal logform">
+				<fieldset>
+					<legend>用户登录</legend>
+					<div class="logcontrol">
+						<div class="control-group">
+							<label class="control-label" for="inputuser">用户名：</label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="user" id="inputuser" value=""/><span>请输入您的用户名</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputpass">密码：</label>
+							<div class="controls">
+								<input class="input-xlarge" type="password" name="pass" id="inputpass" value=""/><span>密码长度6位以上，数字、字母或其他字符</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<button class="btn btn-info logbtn" type="button">登录</button>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+		<div class="logbotm"></div>
+	</div>
+</div>
+</block>
+<block name="footer"><include file="Public:footer" /></block>
+<block name="script">
+<script>
+	$(function(){
+		$('button').click(function(){
+			var user = $("input[name=user]").val();
+			var pass = $("input[name=pass]").val();
+			$.ajax({
+				type : 'post',
+				// url  : '{:U('Home/User/logins')}',
+				url  : "__CONTROLLER__/login",
+				dataType : 'json',
+				data : {user: user,pass: pass},
+				success:function(data){
+					// alert(data);
+					// console.log(data);
+					if(data == 1){
+						alert('用户名和密码不能为空！');
+					}else if(data == 2){
+						window.location.href="__MODULE__/Index/index";
+					}else if(data == 4){
+						alert('该用户级别不够！');
+					}else{
+						alert('请输入正确的用户名和密码！');
+					}
+				}
+			});
+		});
+	});
+</script>
+</block>

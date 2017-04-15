@@ -1,0 +1,96 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>学习资料</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2" style="margin-top: 20px;">
+			<div class="exambox"  style="width: 170px;height: 590px;overflow: auto;overflow-x: hidden;">
+				<div class="st_tree">
+					<ul>
+						<li><a>银行</a></li>
+						<ul>
+							<volist name="list" id="vo">
+							<li style="width: 100px!important;"><a href="javascript:void(0)">{$vo.classname}</a></li>
+							<ul>
+								<li style="width: 80px!important;"><a href="__CONTROLLER__/lesson_right1/id/{$vo.id}" target="right">文档</a></li>
+								<li style="width: 80px!important;background: url(__PUBLIC__/core/styles/css/imgs/st_luy.gif) no-repeat;"><a href="__CONTROLLER__/lesson_right2/id/{$vo.id}" target="right">录音</a></li>
+								<li style="width: 80px!important;background: url(__PUBLIC__/core/styles/css/imgs/st_ship.gif) no-repeat;"><a href="__CONTROLLER__/lesson_right3/id/{$vo.id}" target="right">视频</a></li>
+							</ul>
+							</volist>
+						</ul>
+						<li><a>机构</a></li>
+						<ul>
+							<volist name="list1" id="vo1">
+								<li style="width: 100px!important;"><a href="javascript:void(0)">{$vo1.classname}</a></li>
+								<ul>
+									<li style="width: 80px!important;"><a href="__CONTROLLER__/lesson_right1/id/{$vo1.id}" target="right">文档</a></li>
+									<li style="width: 80px!important;background: url(__PUBLIC__/core/styles/css/imgs/st_luy.gif) no-repeat;"><a href="__CONTROLLER__/lesson_right2/id/{$vo1.id}" target="right">录音</a></li>
+									<li style="width: 80px!important;background: url(__PUBLIC__/core/styles/css/imgs/st_ship.gif) no-repeat;"><a href="__CONTROLLER__/lesson_right3/id/{$vo1.id}" target="right">视频</a></li>
+								</ul>
+							</volist>
+						</ul>
+						
+						<volist name="list2" id="vo2">
+							<li style="width: 100px!important;"><a href="javascript:void(0)">{$vo2.classname}</a></li>
+							<ul>
+								<li style="width: 80px!important;"><a href="__CONTROLLER__/lesson_right1/id/{$vo2.id}" target="right">文档</a></li>
+								<li style="width: 80px!important;background: url(__PUBLIC__/core/styles/css/imgs/st_luy.gif) no-repeat;"><a href="__CONTROLLER__/lesson_right2/id/{$vo2.id}" target="right">录音</a></li>
+								<li style="width: 80px!important;background: url(__PUBLIC__/core/styles/css/imgs/st_ship.gif) no-repeat;"><a href="__CONTROLLER__/lesson_right3/id/{$vo2.id}" target="right">视频</a></li>
+							</ul>
+						</volist>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="span10" id="datacontent" style="">
+			<div class="container-fluid examcontent" style=''>
+				<div class="exambox" id="datacontent">
+					<div class="examform" style="height: 560px;">
+						<iframe src='__CONTROLLER__/lesson_right' name="right" scrolling="yes" frameborder="0" marginheight="0" marginwidth="0" width="964" height="500">
+					    </iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+$(function(){
+	$(".st_tree").SimpleTree({
+		/* 可无视代码部分*/
+		click:function(a){
+			if(!$(a).attr("hasChild"));		
+		}
+	});
+});
+</script>
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			var msg = '确定要退出吗？';
+			if(confirm(msg) == true){
+				$.ajax({
+					type : 'post',
+					url  : '__MODULE__/Index/logout',
+					datatype : 'json',
+					success:function(data){
+						if(data == 1){
+							window.location.href = "__MODULE__/User/login";
+						}else{
+							alert('你好，请登录！');
+							window.location.href = "__MODULE__/User/login";
+						}
+					}
+				});
+			}else{
+				alert('失败！');
+			}
+		});
+	});
+</script>
+</block>

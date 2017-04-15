@@ -1,0 +1,28 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>后台管理系统</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content"><include file="Public:content" /></block>
+<block name="script">
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			$.ajax({
+				type : 'post',
+				url  : '__CONTROLLER__/logout',
+				dataType : 'json',
+				success:function(data){
+//					alert(data);
+					if(data == 1){
+						window.location.href = "__MODULE__/User/login";
+					}else{
+						alert('系统错误');
+						window.location.href = "javascript:window.opener=null;window.open('','_self');window.close();";
+					}
+				}
+			});
+		});
+	});
+</script>
+</block>

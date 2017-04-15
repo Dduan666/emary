@@ -1,0 +1,88 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>分类列表</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<ul class="nav nav-tabs nav-stacked">
+				<li class="active"><a href="">分类管理</a></li>
+			</ul>
+		</div>
+		<div class="span10" id="datacontent">
+			<ul class="breadcrumb">
+				<li><a href="index.php?content-master">内容模块</a> <span class="divider">/</span></li>
+				<li class="active">分类管理</li>
+			</ul>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="javascript:;" onclick="javascript:openall();">分类管理</a>
+				</li>
+				<li class="dropdown pull-right">
+					<a class="dropdown-toggle" href="__CONTROLLER__/category_add">添加分类</a>
+				</li>
+			</ul>
+			<legend>分类列表</legend>
+			<form action="__CONTRLLER__/category" method="post">
+				<fieldset>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th width="80">序号</th>
+								<th width="80">ID</th>
+								<th width="300">分类名称</th>
+								<th width="80">状态</th>
+								<th width="120">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name="list" id="vo">
+								<tr>
+									<td>{$first+$key+1}</td>
+									<td>{$vo.id}</td>
+									<td>{$vo.classname}</td>
+									<td>{$vo.classgrade}</td>
+									<td>
+										<div class="btn-group">
+											<a class="btn" href="__CONTROLLER__/category_adds/id/{$vo.id}"><em class="icon-plus"></em></a>
+											<if condition="$vo.id neq 1">
+												<a class="btn" href="__CONTROLLER__/category_alter/id/{$vo.id}"><em class="icon-edit"></em></a>
+											<a class="btn" onclick="del({$vo.id})"><em class="icon-remove"></em></a>
+											</if>
+										</div>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+					<div class="pagination pagination-right">
+					    <div id="page">{$page}</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+	function del(id){
+		$.ajax({
+			type : 'post',
+			url  : '',
+			dataType : 'json',
+			data : {id: id},
+			success:function(data){
+				if(data == 1){
+					alert('删除成功！');
+					window.location.reload();
+				}else{
+					alert('系统繁忙！');
+				}
+			}
+		});
+	}
+</script>
+</block>

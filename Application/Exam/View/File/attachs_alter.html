@@ -1,0 +1,81 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>文件名修改</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2">
+					<div class="accordion" id="accordion-13465">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" href="__CONTROLLER__/attachs">文件管理 </a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span10" id="datacontent">
+					<ul class="breadcrumb">
+						<li><a href="">文件模块</a> <span class="divider">/</span></li>
+						<li>文件管理</li>
+						<li class="active">添加文件</li>	
+					</ul>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#">添加文件</a></li>
+						<li class="pull-right"><a href="__CONTROLLER__/attachs">文件管理</a></li>
+					</ul>
+					<form action="" name="fileupload" method="POST" class="form-horizontal" enctype="multipart/form-data">
+						<fieldset>
+							<div class="control-group">
+								<label for="modulecode" class="control-label">文件名称</label>
+								<div class="controls">
+									<input type="text" name="{$sel.id}" value="{$sel.fname}" datatype="classname" needle="needle">
+									<span class="help-block">后缀名不可修改</span>
+								</div>
+							</div>
+
+						</fieldset> 
+						<label class="control-label">
+							<button class="btn btn-primary" type="submit">确定</button>
+						</label>
+					</form>
+				</div>
+			</div>
+		</div>
+</block>
+<block name="script">
+<script>
+	$(function() {
+		$('#logout').click(function() {
+			$.ajax({
+				type: 'post',
+				url: '__MODULE__/Index/logout',
+				dataType: 'json',
+				success: function(data) {
+					if(data == 1) {
+						window.location.href = "__MODULE__/Login/login";
+					} else {
+						alert('系统错误');
+						window.location.href = "javascript:window.opener=null;window.open('','_self');window.close();";
+					}
+				}
+			});
+		});
+	});
+</script>
+<script>
+	$(function(){
+		$('#adds').click(function(){
+			$('.controls').append("<div class='col-md-6'><input type='file' class='upload' name='fileUpload[]' class='fileUpload' /></div>");
+		});
+		$('#dels').click(function(){
+			var con = $('.col-md-6').length;
+			if(con > 1){
+				$('.controls .col-md-6:last').remove();
+			}
+		});
+	});
+</script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/jquery.ajaxfileupload.js"></script>
+</block>

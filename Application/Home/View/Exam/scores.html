@@ -1,0 +1,72 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>成绩单</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="row-fluid">
+	<div class="container-fluid examcontent">
+		<div class="exambox" id="datacontent">
+			<div class="examform">
+				<ul class="breadcrumb">
+					<li>
+						<span class="icon-home"></span> <a href="__MODULE__/Index/index">主页</a> <span class="divider">/</span>
+					</li>
+					<li>成绩单</li>
+				</ul>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#">成绩单</a>
+					</li>
+				</ul>
+				<table class="table table-bordered table-hover">
+					<tr class="info">
+						<td>名次</td>
+						<td>用户名</td>
+                        <td>得分</td>
+						<td>考试时间</td>
+					</tr>
+					<volist name="sel" id="v">
+						<tr>
+							<td>{$first+$key+1}</td>
+							<td>{$v.username}</td>
+							<td>{$v.totalscore}</td>
+							<td>{$v.date}</td>
+						</tr>
+					</volist>
+				</table>
+				<div class="pagination pagination-right">
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="footer"><include file="Public:footer" /></block>
+<block name="script">
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			var msg = '确定要退出吗？';
+			if(confirm(msg) == true){
+				$.ajax({
+					type : 'post',
+					url  : '__MODULE__/Index/logout',
+					datatype : 'json',
+					success:function(data){
+						if(data == 1){
+							window.location.href = "__MODULE__/User/login";
+						}else{
+							alert('你好，请登录！');
+							window.location.href = "__MODULE__/User/login";
+						}
+					}
+				});
+			}else{
+				alert('失败！');
+			}
+		});
+	});
+</script>
+</block>

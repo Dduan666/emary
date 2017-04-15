@@ -1,0 +1,9 @@
+*{
+	list-style: none;
+}
+a{
+	cursor: pointer;
+}
+.one_but{
+	display: none;
+}

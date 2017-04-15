@@ -1,0 +1,231 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>Examry</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="row-fluid">
+	<div class="container-fluid examcontent">
+		<div class="exambox" id="datacontent">
+			<form class="examform form-horizontal" id="form1" name="form1" action="__MODULE__/exampaper_paper" method="post">
+				<ul class="breadcrumb">
+					<li>
+						<span class="icon-home"></span> <a href="__MODULE__/Index/index">主页</a> <span class="divider">/</span>
+					</li>
+					<li class="active"> <a href="__MODULE__/Exam/exam">正式考试</a> <span class="divider">/</span></li>
+					<li>开始考试</li>
+				</ul>
+				<div id="panel-type1" class="tab-pane active">
+			<!--选择题-->
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">单选题</span></a>
+						</li>
+					</ul>
+					<div id="question_q_0" class="paperexamcontent">
+						<?php
+							$d=0;
+							?>
+						<foreach name="dx" item="v0">
+						<foreach name="v0" item="dx">
+						<div class="media well single">
+							<div class="media-body well text-warning">
+								<a name="question_q_0"></a> {$d+1}.{$dx.qbname}
+								<li class="btn-group pull-right">
+									<button class="btn" type="button" onclick="javascript:signQuestion('q_0',this);"><em class="icon-star-empty" title="标注"></em></button>
+								</li>
+							</div>
+							<div class="media-body well noborder">
+		                    	<p>{$dx.qbbeixuan}</p>
+							</div>
+		                    <div class="media-body well">		              
+		                    	<label class="radio inline" style="margin-top: 4px!important;"><input type="radio" name="{$dx.qbid}" rel="q_0" value="A" />A </label>
+			                    <label class="radio inline" style="margin-top: 4px!important;"><input type="radio" name="{$dx.qbid}" rel="q_0" value="B" />B </label>
+			                    <label class="radio inline" style="margin-top: 4px!important;"><input type="radio" name="{$dx.qbid}" rel="q_0" value="C" />C </label>
+			                    <label class="radio inline" style="margin-top: 4px!important;"><input type="radio" name="{$dx.qbid}" rel="q_0" value="D" />D </label>
+			                </div>
+						</div>
+						</foreach>
+						<?php
+							$d++;
+							?>
+						</foreach>
+					</div>
+			<!--判断题-->
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">判断题</span></a>
+						</li>
+					</ul>
+					<div id="question_q_2" class="paperexamcontent">
+						<?php
+							$e=0;
+							?>
+						<foreach name="pd" item="v2">
+						<foreach name="v2" item="pd">
+						<div class="media well judge">
+							<div class="media-body well text-warning">
+								<a name="question_q_2"></a>{$e+1}.{$pd.qbname}
+								<li class="btn-group pull-right">
+									<button class="btn" type="button" onclick="javascript:signQuestion('q_1',this);"><em class="icon-star-empty" title="标注"></em></button>
+								</li>
+							</div>
+		                    <div class="media-body well">		              
+		                    	<label class="radio inline" style="margin-top: 5px!important;"><input type="radio" name="{$pd.qbid}" rel="q_2" value="A" />对 </label>
+			                    <label class="radio inline" style="margin-top: 5px!important;"><input type="radio" name="{$pd.qbid}" rel="q_2" value="B" />错 </label>
+			                </div>
+						</div>
+						</foreach>
+						<?php
+							$e++;
+							?>
+						</foreach>
+					</div>
+					<!--填空题-->
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">填空题</span></a>
+						</li>
+					</ul>
+					<div id="question_q_4" class="paperexamcontent">
+						<?php
+							$f=0;
+							?>
+						<foreach name="tk" item="v4">
+						<foreach name="v4" item="tk">
+						<div class="media well filling">
+							<div class="media-body well text-warning">
+								<a name="question_q_4"></a>{$f+1}. {$tk.qbname}
+								<li class="btn-group pull-right">
+									<button class="btn" type="button" onclick="javascript:signQuestion('q_4',this);"><em class="icon-star-empty" title="标注"></em></button>
+								</li>
+							</div>
+		                    <div class="media-body well">		              
+		                    	<label class="radio inline">
+		                    		<input type="text" name="{$tk.qbid}" rel="q_4" value="" style="width: 250px!important;" />
+		                    	</label>
+			                </div>
+						</div>
+						</foreach>
+						<?php
+							$f++;
+							?>
+						</foreach>
+					</div>
+					<!--问答题-->
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">问答题</span></a>
+						</li>
+					</ul>
+					<div id="question_q_3" class="paperexamcontent">
+						<?php
+							$i=0;
+							?>
+						<foreach name="wd" item="v3">
+						<foreach name="v3" item="wd">
+						<div class="media well answers">
+							<div class="media-body well text-warning">
+								<a name="question_q_3"></a>{$i+1}. {$wd.qbname}
+								<li class="btn-group pull-right">
+									<button class="btn" type="button" onclick="javascript:signQuestion('q_3',this);"><em class="icon-star-empty" title="标注"></em></button>
+								</li>
+							</div>
+		                    <div class="media-body well">		              
+		                    	<label class="radio inline">
+		                    		<textarea class="wenda" name="{$wd.qbid}" style="width: 500px;"></textarea>
+		                    	</label>
+			                </div>
+						</div>
+						</foreach>
+						<?php
+							$i++;
+							?>
+						</foreach>
+					</div>
+				</div>
+			</form>	
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="toolcontent">
+			<div class="container-fluid footcontent">
+				<div class="span2">
+					<ul class="unstyled">
+						<li>
+							<h4>
+								<img src="__PUBLIC__/core/styles/images/icons/Watches.png" style="width:1.3em;"/> 
+								<span id="hour_show">00</span>：
+								<span id="minute_show">00</span>：
+								<span id="second_show">00</span>
+							</h4>
+						</li>
+					</ul>
+				</div>
+				<div class="span2">
+					<ul class="unstyled">
+						<li>
+								<a href="#top"><em class="icon-circle-arrow-up"></em>回顶部</a> &nbsp; 
+							</h6>
+						</li>
+					</ul>
+				</div>
+				<div class="span6">
+					<ul class="unstyled">
+						<li>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								总分：<span class="orange">100</span>分
+								合格分数线：<span class="orange">60</span>分
+								考试时间：<span class="orange">60</span>分钟
+							</h6>
+						</li>
+					</ul>
+				</div>
+				<div class="span2">
+					<ul class="unstyled">
+						<li class="text-right"><a href="" onclick="javascript:$('#form1').submit();" id="submit" role="button" class="btn btn-primary" data-toggle="dropdown"> 交 卷 </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="footer"><include file="Public:footer" /></block>
+<block name="script">
+<script>
+var intDiff = parseInt(3600);//倒计时总秒
+var times = '';
+function timer(intDiff){
+	window.setInterval(function(){
+		var day=0,
+			hour=0,
+			minute=0,
+			times = intDiff,
+			second=0;//时间默认值		
+		if(intDiff > 0){
+			day = Math.floor(intDiff / (60 * 60 * 24));
+			hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+			minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+			second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+		}
+		if (minute <= 9) minute = '0' + minute;
+		if (second <= 9) second = '0' + second;
+//		$('#day_show').html(day+"天");
+		$('#hour_show').html('<s id="h"></s>'+hour+'0');
+		$('#minute_show').html('<s></s>'+minute);
+		$('#second_show').html('<s></s>'+second);
+		intDiff--;
+		if(times == 0){
+			console.log('答题时间已到，即将提交试卷！');
+//			alert('答题时间已到，即将提交试卷！');
+			$('#form1').submit();
+		}
+	}, 1000);
+} 
+$(function(){
+	timer(intDiff);
+});	
+</script>
+</block>

@@ -1,0 +1,94 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>资料统计</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="content">
+<div class="row-fluid" style="position: relative;z-index: 1;">
+	<div class="container-fluid examcontent">
+		<div class="exambox" id="datacontent">
+			<div style="width: 100%;height: 10px;"></div>
+			<form class="examform form-horizontal" id="form1" name="form1" action="__CONTROLLER__/exaps_check" method="post">
+				<div id="panel-type1" class="tab-pane active">
+					<!-- 单选题 -->
+					<if condition="$sel.qbtype eq 0">
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">单选题</span></a>
+						</li>
+					</ul>
+					<div id="question_q_4" class="paperexamcontent">
+						<div class="media well filling">
+							<div class="media-body well text-warning">
+								{$sel.qbname}<br />
+		                    	<label class="radio inline">
+		                    		选项：<span>{$sel.qbbeixuan}</span><br/>
+		                    		答案：<sapn style="">{$sel.qbdaan} </span>
+		                    	</label>
+			                </div>
+						</div>
+					</div>
+					</if>
+					<!-- 判断题 -->
+					<if condition="$sel.qbtype eq 2">
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">判断题</span></a>
+						</li>
+					</ul>
+					<volist name='tks' id='tk'>
+					<div id="question_q_4" class="paperexamcontent">
+						<div class="media well filling">
+							<div class="media-body well text-warning">
+								{$sel.qbname}<br />
+		                    	<label class="radio inline">
+		                    		答案：<sapn style="">{$sel.qbdaan} </span>
+		                    	</label>
+			                </div>
+						</div>
+					</div>
+					</if>
+					<!--填空题-->
+					<if condition="$sel.qbtype eq 4">
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">填空题</span></a>
+						</li>
+					</ul>
+					<volist name='tks' id='tk'>
+					<div id="question_q_4" class="paperexamcontent">
+						<div class="media well filling">
+							<div class="media-body well text-warning">
+								{$sel.qbname}<br />
+		                    	<label class="radio inline">
+		                    		答案：<sapn style="">{$sel.qbdaan} </span>
+		                    	</label>
+			                </div>
+						</div>
+					</div>
+					</if>
+					<!--问答题-->
+					<if condition="$sel.qbtype eq 3">
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">问答题</span></a>
+						</li>
+					</ul>
+					<volist name="wds" id="wd">
+					<div id="question_q_3" class="paperexamcontent">
+						<div class="media well answers">
+							<div class="media-body well text-warning">
+								{$sel.qbname}<br />
+								<label class="radio inline">
+		                    		答案：<sapn style="">{$sel.qbdaan} </span>
+		                    	</label>
+			                </div>
+						</div>
+					</div>
+					</if>
+				</div>
+				<input type="hidden" name="scoreid" id="scoreid" value="{$kid}" />
+			</form>	
+		</div>
+	</div>	
+</div>
+</block>

@@ -1,0 +1,119 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>试卷管理</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<div class="accordion" id="accordion-13465">
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="accordion-toggle" href="__CONTROLLER__/questions">试题管理 </a>
+					</div>
+				</div>
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="accordion-toggle" style="color: #000;" data-parent="#accordion-13465" data-toggle="collapse" href="#accordion-element-212096">试卷管理 </a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="span10" id="datacontent">
+			<ul class="breadcrumb">
+				<li><a href="">考试模块</a> <span class="divider">/</span></li>
+				<li class="active">试卷管理</li>
+			</ul>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#">试卷管理</a>
+				</li>
+			</ul>
+	        <table class="table table-hover">
+	            <thead>
+	                <tr>
+	                    <th>序号</th>
+				        <th>考试时间</th>
+				        <th>考生姓名</th>
+				        <th>组卷类型</th>
+				        <th>试卷成绩</th>
+				        <th>试卷状态</th>
+				        <th>操作</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	            	<foreach name="info" item="v">
+                    <tr>
+						<td>{$frist+$key+1}</td>
+						<td>{$v.date}</td>	
+						<td>{$v.name}</td>
+						<td>随机组卷</td>
+						<td>{$v.totalscore}</td>
+						<td><if condition="$v.status eq 0"><p style="color: red;">未审核</p><else />已审核</if></td>
+						<td>
+							<div class="btn-group">
+								<if condition="$v.status eq 0">
+									<a class="btn" target="_blank" onclick="ClientOpenDialog('__CONTROLLER__/exams_alter/id/{$v.scoreid}','Caption')" 
+	                    			data-toggle="collapse" title="阅卷"><em class="icon-list-alt"></em></a>
+									<else/>
+								</if>
+								<a class="btn del" onclick="del({$v.reportid})" data-toggle="dropdown" title="删除"><em class="icon-remove"></em></a>
+	                    	</div>
+						</td>
+						<script>
+							function ClientOpenDialog(url, Caption) {
+								var returnWindow = window.open(url, Caption, "resizable=yes,scrollbars=yes,Height=" + 760 + ",Width=" + 800);
+								returnWindow.focus();
+							}
+						</script>
+			       </tr>
+			       </foreach>
+			    </tbody>
+	        </table>
+	        <div class="pagination pagination-right">
+			    <div id="page">{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			$.ajax({
+				type : 'post',
+				url  : '__MODULE__/Index/logout',
+				dataType : 'json',
+				success:function(data){
+					if(data == 1){
+						window.location.href = "__MODULE__/Login/login";
+					}else{
+						alert('系统错误');
+						window.location.href = "javascript:window.opener=null;window.open('','_self');window.close();";
+					}
+				}
+			});
+		});
+	});
+</script>
+<script>
+		/*删除方法*/
+	function del(id){
+		$.ajax({
+			type : 'post',
+			url  : '__CONTROLLER__/exams_del',
+			dataType : 'json',
+			data : {id: id},
+			success:function(data){
+				if(data == 1){
+					window.location.reload();
+				}else{
+					alert('删除失败！');
+				}
+			}
+		});
+	}
+</script>
+</block>

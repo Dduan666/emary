@@ -1,0 +1,269 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>试题修改</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<div class="accordion" id="accordion-13465">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" href="__CONTROLLER__/questions">试题管理 </a>
+		</div>
+	</div>
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" href="__CONTROLLER__/exams">试卷管理 </a>
+		</div>
+	</div>
+</div>
+		</div>
+		<div class="span10" id="datacontent">
+			<ul class="breadcrumb">
+				<li><a href="index.php?exam-master">考试模块</a> <span class="divider">/</span></li>
+				<li><a href="index.php?exam-master-questions&page=">普通试题管理</a> <span class="divider">/</span></li>
+				<li class="active">添加普通试题</li>
+			</ul>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#">添加普通试题</a>
+				</li>
+				<li class="pull-right">
+					<a href="__CONTROLLER__/questions">试题列表</a>
+				</li>
+			</ul>
+			<form action="" method="post" class="form-horizontal">
+				<fieldset>
+				<!--<foreach name="info" item="vo">-->
+				<div class="control-group">
+					<label class="control-label">题型：</label>
+				  	<div class="controls">
+					  	<select needle="needle" name="tixing" class="combox" id="tixing">
+					  		<option rel="0" value="0"
+					  			<if condition="$info.qbtype eq 0">selected </if>
+					  			>单选题</option>
+					  		<option rel="2" value="2"
+					  			<if condition="$info.qbtype eq 2">selected </if>
+					  			>判断题</option>
+					  		<option rel="3" value="3"
+					  			<if condition="$info.qbtype eq 3">selected </if>
+					  			>问答题</option>
+					  		<option rel="4" value="4"
+					  			<if condition="$info.qbtype eq 4">selected </if>
+					  			>填空题</option>
+					  	</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">题干：</label>
+				  	<div class="controls">
+					  	<textarea class="" name="tigan" id="tigan">{$info.qbname}</textarea>
+					  	<span class="help-block">需要填空处请以()表示。</span>
+					</div>
+				</div>
+				<div class="control-group dzb3" id="selecttext">
+					<label class="control-label">备选项：</label>
+				  	<div class="controls">
+					  	<textarea class="" name="beixuan" id="beixuan">{$info.qbbeixuan}</textarea>
+					  	<span class="help-block">请将单选题或者判断的选项填写如下：</span>
+					</div>
+				</div>
+				<div class="control-group dzb">
+					<label class="control-label">参考答案：</label>
+					<div class="controls">
+						<div id="answerbox_1" class="answerbox">
+						  	<label class="radio inline">
+						  		<input type="radio" name="danxuan" value="A"
+						  			<if condition="$info.qbdaan eq A">checked </if>
+						  			>A
+						  	</label>
+						  	<label class="radio inline">
+						  		<input type="radio" name="danxuan" value="B"
+						  			<if condition="$info.qbdaan eq B">checked </if>
+						  			>B
+						  	</label>
+						  	<label class="radio inline">
+						  		<input type="radio" name="danxuan" value="C"
+						  			<if condition="$info.qbdaan eq C">checked </if>
+						  			>C
+						  	</label>
+						  	<label class="radio inline">
+						  		<input type="radio" name="danxuan" value="D"
+						  			<if condition="$info.qbdaan eq D">checked </if>
+						  			>D
+						  	</label>
+						</div>
+						<div id="answerbox_3" class="answerbox" style="display:none;">
+						  	<label class="radio inline">
+						  		<input type="radio" name="panduan" value="A"
+								<if condition="$info.qbdaan eq A">checked</if>
+								>对
+						  	</label>
+						  	<label class="radio inline">
+						  		<input type="radio" name="panduan" value="B"
+								<if condition="$info.qbdaan eq B">checked</if>
+								>错
+						  	</label>
+						</div>
+						<div id="answerbox_4" class="answerbox" style="display:none;">
+						  	<textarea class="" name="wenda" id="wenda">{$info.qbdaan}</textarea>
+					  		<span class="help-block">请将问答题的答案填写如下：</span>
+						</div>
+						<div id="answerbox_5" class="answerbox" style="display:none;">
+						  	<input type="text" name="tiankong" value="{$info.qbdaan}" />
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">习题解析：</label>
+				  	<div class="controls">
+				  		<textarea class="" name="jiexi" id="jiexi">{$info.qbjiexi}</textarea>
+					</div>
+				</div>
+				<div class="control-group">
+				  	<div class="controls">
+					  	<button class="btn btn-primary" type="button">提交</button>
+					  	<input type="hidden" name="page" value=""/>
+					  	<input type="hidden" name="insertquestion" value="1"/>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+	$(function(){
+	    $('#tixing').change(function () {
+ 			for (var i =0; i < 5; i++) {
+                $('#answerbox_'+i).hide(); //将6个不同的class 利用for循环遍历出来！
+            }
+            $('.dzb').show();
+            $('.dzb2').show();
+            $('.dzb3').show();
+            if($("select>option:checked").val() == 0){
+                $('#mum').show();
+                $('#answerbox_1').show();
+            }else if($("select>option:checked").val() == 2){
+                $('.dzb2').hide();
+                $('#num').hide();
+                $('#answerbox_3').show();
+            }else if($("select>option:checked").val() == 3){
+                $('#num').hide();
+                $('.dzb2').hide();
+                $('.dzb3').hide();
+                $('#answerbox_4').show();
+            }else{
+                $('#num').hide();
+                $('.dzb2').hide();
+                $('.dzb3').hide();
+                $('#answerbox_5').show();
+            }
+        });
+	});
+</script>
+<script>
+	$(function(){
+		$('button').click(function(){
+			if($("#tixing").val() == 0){
+				var tixing = $("#tixing").val();
+				var tigan = $('#tigan').val();
+				var beixuan = $('#beixuan').val();
+				var danxuan = $("input[name='danxuan']").val();
+				var jiexi = $('#jiexi').val();
+				$.ajax({
+					type : 'post',
+					url  : '',
+					dataType : 'json',
+					data : {qbtype: tixing,qbname: tigan,qbbeixuan: beixuan,qbdanxuan: danxuan,qbjiexi: jiexi},
+					success:function(data){
+						if(data == 2){
+                            window.location.href = "__MODULE__/Exam/questions";
+						}else{
+							alert('修改失败！');
+						}
+					}
+				});
+			}else if($("#tixing").val() == 2){
+				var tixing = $("#tixing").val();
+				var tigan = $('#tigan').val();
+				var beixuan = $('#beixuan').val();
+				var panduan = $("input[name='panduan']").val();
+				var jiexi = $('#jiexi').val();
+				$.ajax({
+					type : 'post',
+					url  : '',
+					dataType : 'json',
+					data : {qbtype: tixing,qbname: tigan,qbbeixuan: beixuan,qbpanduan: panduan,qbjiexi: jiexi},
+					success:function(data){
+						if(data == 2){
+                            window.location.href = "__MODULE__/Exam/questions";
+						}else{
+							alert('修改失败！');
+						}
+					}
+				});
+			}else if($("#tixing").val() == 3){
+				var tixing = $("#tixing").val();
+				var tigan = $('#tigan').val();
+				var wenda = $('#wenda').val();
+				var jiexi = $('#jiexi').val();
+				$.ajax({
+					type : 'post',
+					url  : '',
+					dataType : 'json',
+					data : {qbtype: tixing,qbname: tigan,qbwenda: wenda,qbjiexi: jiexi},
+					success:function(data){
+						if(data == 2){
+                            window.location.href = "__MODULE__/Exam/questions";
+						}else{
+							alert('修改失败！');
+						}
+					}
+				});
+			}else{
+				var tixing = $("#tixing").val();
+				var tigan = $('#tigan').val();
+				var tiankong = $("input[name='tiankong']").val();
+				var jiexi = $('#jiexi').val();
+				$.ajax({
+					type : 'post',
+					url  : '',
+					dataType : 'json',
+					data : {qbtype: tixing,qbname: tigan,qbtiankong: tiankong,qbjiexi: jiexi},
+					success:function(data){
+						if(data == 2){
+                            window.location.href = "__MODULE__/Exam/questions";
+						}else{
+							alert('修改失败！');
+						}
+					}
+				});
+			}
+		});
+	});
+</script>
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			$.ajax({
+				type : 'post',
+				url  : '__MODULE__/Index/logout',
+				dataType : 'json',
+				success:function(data){
+					if(data == 1){
+						window.location.href = "__MODULE__/Login/login";
+					}else{
+						alert('系统错误');
+						window.location.href = "javascript:window.opener=null;window.open('','_self');window.close();";
+					}
+				}
+			});
+		});
+	});
+</script>
+</block>

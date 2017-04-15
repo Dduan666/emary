@@ -1,0 +1,43 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>文件模块</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<ul class="nav nav-tabs nav-stacked">
+				<li><a href="__CONTROLLER__/attachs">文件管理</a></li>
+			</ul>		
+		</div>
+		<div class="span10">
+			<ul class="breadcrumb">
+				<li><a href="__MODULE__/Index/index">全局</a> <span class="divider">/</span></li>
+				<li class="active">文件模块</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</block>
+<block name="script">
+<script>
+	$(function(){
+		$('#logout').click(function(){
+			$.ajax({
+				type : 'post',
+				url  : '__MODULE__/Index/logout',
+				dataType : 'json',
+				success:function(data){
+					if(data == 1){
+						window.location.href = "__MODULE__/User/login";
+					}else{
+						alert('系统错误');
+						window.location.href = "javascript:window.opener=null;window.open('','_self');window.close();";
+					}
+				}
+			});
+		});
+	});
+</script>
+</block>

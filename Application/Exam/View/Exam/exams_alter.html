@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="__PUBLIC__le-mobile-web-__PUBLIC__-capable" content="yes" />
+<title>阅卷</title>
+<!-- Le styles -->
+<link href="__PUBLIC__/core/styles/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="__PUBLIC__/core/styles/css/layoutit.css" rel="stylesheet">
+<link href="__PUBLIC__/core/styles/css/plugin.css" rel="stylesheet">
+<link href="__PUBLIC__/core/styles/css/datetimepicker.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/exam/styles/css/mathquill.css" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/jquery-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/swfu/swfupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/core/styles/js/plugin.js"></script>
+</head>
+<body>
+<div class="row-fluid" style="position: relative;z-index: 1;">
+	<div class="container-fluid examcontent">
+		<div class="exambox" id="datacontent">
+			<div style="width: 100%;height: 10px;"></div>
+			<form class="examform form-horizontal" id="form1" name="form1" action="__CONTROLLER__/exaps_check" method="post">
+				<div id="panel-type1" class="tab-pane active">
+					<!--填空题-->
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">填空题</span></a>
+						</li>
+					</ul>
+					<volist name='tks' id='tk'>
+					<div id="question_q_4" class="paperexamcontent">
+						<div class="media well filling">
+							<div class="media-body well text-warning">
+								{$first+$key+1}.{$tk.qbname}<br />
+		                    	<label class="radio inline">
+		                    		现答案：<sapn style="">{$tk.scoreanswer} </span><br/>
+		                    		<p style="color: #DF8505;">原答案：<span>{$tk.qbdaan}</span></p>
+		                    	</label>
+		                    	<br />
+		                    	<li class="btn-group">
+									<button class="btn" type="button">
+										打分：<input type="text" name="tk_{$tk.qbid}" value="" style="width: 39px;border: none;">
+									</button>
+								</li>
+			                </div>
+						</div>
+					</div>
+					</volist>
+					<!--问答题-->
+					<ul class="breadcrumb">
+						<li class="active">
+							<span class="badge badge-info questionindex" style="width: 50px!important;">问答题</span></a>
+						</li>
+					</ul>
+					<volist name="wds" id="wd">
+					<div id="question_q_3" class="paperexamcontent">
+						<div class="media well answers">
+							<div class="media-body well text-warning">
+								{$first+$key+1}.{$wd.qbname}<br />
+								<label class="radio inline">
+		                    		现答案：<sapn style="">{$wd.scoreanswer} </span><br/>
+		                    		<p style="color: #DF8505;">原答案：<span>{$wd.qbdaan}</span></p>
+		                    	</label>
+		                    	<br />
+		                    	<li class="btn-group">
+									<button class="btn" type="button">
+										打分：<input type="text" name="tk_{$wd.qbid}" value="" style="width: 39px;border: none;">
+									</button>
+								</li>
+			                </div>
+						</div>
+					</div>
+					</volist>
+				</div>
+				<input type="hidden" name="scoreid" id="scoreid" value="{$kid}" />
+			</form>	
+		</div>
+	</div>
+	<div class="toolcontent" style="width: 100%;height: 50px!important;background: #e3e3e3!important;position: fixed;bottom:0px;z-index: 2;">
+		<ul class="unstyled" style="width: 100%;">
+			<li style="float: left;line-height: 50px;margin-left: 20px;">单选题和判断提答案系统已阅，请手动审阅（填空/2分、问答/5分）题，0分不用输入。</li>
+			<li style="line-height: ;float: left;margin-left: 19%;">
+				<a href="" onclick="javascript:$('#form1').submit();" id="submit" class="btn btn-primary" role="button" data-toggle="dropdown" style="margin-top: 10px;"> 提 交 </a>
+			</li>
+		</ul>
+	</div>		
+</div>
+</body>
+</html>

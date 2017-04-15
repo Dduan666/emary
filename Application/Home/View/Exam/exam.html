@@ -1,0 +1,49 @@
+<extend name="Layout/layout" />
+<block name="meta"><include file="Public:meta" /></block>
+<block name="title"><title>开始考试</title></block>
+<block name="head"><include file="Public:head" /></block>
+<block name="header"><include file="Public:header" /></block>
+<block name="content">
+<div class="row-fluid">
+	<div class="container-fluid examcontent">
+		<div class="exambox" id="datacontent">
+			<div class="examform">
+				<ul class="breadcrumb">
+					<li>
+						<span class="icon-home"></span> <a href="index.php?exam">主页</a> <span class="divider">/</span>
+					</li>
+					<li>正式考试</li>
+				</ul>
+				<div class="alert alert-info">
+					<strong>提示：</strong>
+					<p>本考场开启时间 限制（60） ； 考试次数  不限 ； 抽卷规则 随机抽卷。</p>
+				</div>
+            	<ul class="unstyled">
+                	<li><b>1、</b>点击考试名称按钮进入答题界面，考试开始计时。</li>
+                	<li><b>2、</b>在随机考试过程中，您可以通过顶部的考试时间来掌握自己的做题时间。</li>
+                	<li><b>3、</b>提交试卷后，可以通过“答题记录”功能进行查看。</li>
+                	<li>&nbsp;</li>
+                </ul>
+				<ul class="thumbnails">
+					<li class="span2">
+						<div class="thumbnail">
+							<img src="__PUBLIC__/core/styles/images/icons/Watches.png"/>
+							<div class="caption">
+								<p class="text-center">
+								<a class="btn btn-primary" href="__MODULE__/Exam/exampaper_paper" title="300" action-before="clearStorage"> 开始考试 </a>
+								</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+<block name="footer"><include file="Public:footer" /></block>
+<block name="script">
+<script type="text/javascript">
+$(".thumbnails img").bind("error",function(){$(this).attr("src","__PUBLIC__/core/styles/images/icons/Book.png?"+Math.random());});
+</script>
+</block>
